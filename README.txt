@@ -1,4 +1,3 @@
-# ganz
 My implementation of Ganomaly and Skip-Ganomaly
 
 The sctructure for the custom dataset -   
