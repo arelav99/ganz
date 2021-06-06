@@ -10,7 +10,7 @@ from tqdm import tqdm
 import numpy as np
 import os
 import matplotlib.pyplot as plt
-
+tf.get_logger().setLevel('INFO')
 
 class Ganomaly:
     def __init__(self, opts):
@@ -23,12 +23,10 @@ class Ganomaly:
             self.generator = build_generator_gan(opts)
             self.discriminator = build_discriminator_gan(opts)
 
-        # self.optimizer_d = keras.optimizers.Adam(
-        #     opts.lr, beta_1=opts.b1, beta_2=opts.b2)
-        # self.optimizer_g = keras.optimizers.Adam(
-        #     opts.lr, beta_1=opts.b1, beta_2=opts.b2)
-        self.optimizer_d = keras.optimizers.SGD(opts.lr)
-        self.optimizer_g = keras.optimizers.SGD(opts.lr)
+        self.optimizer_d = keras.optimizers.Adam(opts.lr)
+        self.optimizer_g = keras.optimizers.Adam(opts.lr)
+        # self.optimizer_d = keras.optimizers.SGD(opts.lr)
+        # self.optimizer_g = keras.optimizers.SGD(opts.lr)
 
         self.time_stamp = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
 
@@ -63,8 +61,6 @@ class Ganomaly:
             err_g, err_d, grads_gen, grads_descr = self.calculate_losses_and_gradients(
                 input_, step)
             self.update_weights(grads_gen, grads_descr)
-
-            break
 
         print(
             f"For epoch {epoch} : \n Generator loss - {err_g}, discriminator loss - {err_d}")
@@ -123,7 +119,7 @@ class Ganomaly:
         for inx in range(imgs.shape[0]):
             _, ax = plt.subplots(1, 2,  figsize=(5, 2))
             ax[0].imshow(tf.squeeze(imgs[inx]) * 127.5 + 127.5)
-            ax[1].imshow(tf.squeeze(fake_imgs[inx]) * 127.5 + 127.5)
+            ax[1].imshow(tf.cast(tf.squeeze(fake_imgs[inx]) * 127.5 + 127.5, tf.int16))
             plt.show()
 
     def get_anomaly_score(self, batch):

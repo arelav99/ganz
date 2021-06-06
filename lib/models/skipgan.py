@@ -28,12 +28,10 @@ class SkipGanomaly:
             self.generator = build_generator_skipgan(opts)
             self.discriminator = build_discriminator_skipgan(opts)
 
-        # self.optimizer_g = keras.optimizers.Adam(
-        #     opts.lr, beta_1=opts.b1, beta_2=opts.b2)
-        # self.optimizer_d = keras.optimizers.Adam(
-        #     opts.lr, beta_1=opts.b1, beta_2=opts.b2)
-        self.optimizer_d = keras.optimizers.SGD(opts.lr)
-        self.optimizer_g = keras.optimizers.SGD(opts.lr)
+        self.optimizer_g = keras.optimizers.Adam(opts.lr)
+        self.optimizer_d = keras.optimizers.Adam(opts.lr)
+        # self.optimizer_d = keras.optimizers.SGD(opts.lr)
+        # self.optimizer_g = keras.optimizers.SGD(opts.lr)
 
         self.time_stamp = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
 
