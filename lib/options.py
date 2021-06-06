@@ -29,9 +29,9 @@ def parse_args():
     parser.add_argument("--w_con", default=50)
     parser.add_argument("--w_enc", default=1)
     parser.add_argument(
-        '--lr', help='Learning rate', default=1e-3)
+        '--lr', help='Learning rate', default=1e-3, type=float)
     parser.add_argument(
-        '--epochs', help='Number of epochs', default=1)
+        '--epochs', help='Number of epochs', default=1, type=int)
     parser.add_argument(
         '--abnormal_class', help='Abnormal class number', type=int, required=True)
     parser.add_argument(
