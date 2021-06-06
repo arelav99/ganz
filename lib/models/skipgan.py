@@ -83,7 +83,7 @@ class SkipGanomaly:
 
             err_g_con = mae(input_, fake)
             err_g_lat = mse(feat_real, feat_fake)
-            err_g_adv = bce(tf.squeeze(pred_real), tf.squeeze(pred_fake))
+            err_g_adv = bce(tf.squeeze(pred_fake),  tf.ones(pred_fake.shape[0], dtype=np.float32))
             err_g = err_g_con * self.opts.w_con + \
                 err_g_lat * self.opts.w_enc + \
                 err_g_adv * self.opts.w_adv
